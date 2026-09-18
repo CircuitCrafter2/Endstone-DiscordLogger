@@ -87,7 +87,10 @@ avatar_url = ""
 
 Other plugins can use DiscordLogger's API to send their own logs:
 
+**⚠️ Important:** `on_enable` is **synchronous** in Endstone. You cannot use `await` directly. Use `endstone.asyncio.submit()` instead.
+
 ```python
+import endstone.asyncio
 from endstone.plugin import Plugin
 
 class MyPlugin(Plugin):
@@ -98,27 +101,35 @@ class MyPlugin(Plugin):
             api = discord_logger.get_api()
             
             # Send a log through DiscordLogger to a specific URL
-            await api.send_log(
-                module="custom",
-                message="My custom log message",
-                webhook_url="https://discord.com/api/webhooks/your-webhook"
+            # Use endstone.asyncio.submit() for async operations in on_enable
+            endstone.asyncio.submit(
+                api.send_log(
+                    module="custom",
+                    message="My custom log message",
+                    webhook_url="https://discord.com/api/webhooks/your-webhook"
+                )
             )
             
-            # Or register a custom webhook for reuse
+            # Or register a custom webhook for reuse (sync operation - no submit needed)
             api.register_webhook(
                 name="my_plugin_events",
                 url="https://discord.com/api/webhooks/your-webhook"
             )
             
-            # Then send to it later
-            await api.send_to_webhook(
-                webhook_name="my_plugin_events",
-                message="Something happened in my plugin!",
-                title="My Plugin Event",
-                color=0xFF5733
+            # Then send to it later (also async, needs submit)
+            endstone.asyncio.submit(
+                api.send_to_webhook(
+                    webhook_name="my_plugin_events",
+                    message="Something happened in my plugin!",
+                    title="My Plugin Event",
+                    color=0xFF5733
+                )
             )
 ```
 
+**Note:** For async methods (those returning a coroutine), always use `endstone.asyncio.submit()`. 
+For synchronous methods (like `register_webhook`, `is_enabled`, etc.), you can call them directly without `submit()`.
+```
 ### API Methods
 
 | Method | Description |
