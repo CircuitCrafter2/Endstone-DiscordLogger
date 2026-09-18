@@ -1,0 +1,36 @@
+# DiscordLogger English translations
+[messages]
+plugin_enabled = "DiscordLogger enabled!"
+plugin_disabled = "DiscordLogger disabled!"
+
+[events]
+player_join = "{player} joined the server"
+player_quit = "{player} left the server"
+server_start = "Server started"
+server_stop = "Server stopped"
+server_crash = "Server crashed!"
+
+[commands]
+player_command = "{player} executed command: {command}"
+console_command = "Console executed command: {command}"
+chat_message = "{player}: {message}"
+
+[test]
+success = "Webhook test for {module} sent successfully!"
+failed = "Webhook test for {module} failed!"
+invalid_module = "Invalid module: {module}"
+usage = "Usage: /test <module>"
+
+[errors]
+no_webhook_url = "No webhook URL configured for {module}"
+webhook_send_failed = "Failed to send webhook for {module}"
+
+[modules]
+player_join = "player_join"
+player_quit = "player_quit"
+server_start = "server_start"
+server_stop = "server_stop"
+server_crash = "server_crash"
+player_command = "player_command"
+console_command = "console_command"
+chat_message = "chat_message"

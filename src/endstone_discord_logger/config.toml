@@ -1,0 +1,60 @@
+# Global webhook URL - used when a module-specific URL is not set
+# All modules will use this URL unless they have their own defined below
+global_webhook = ""
+
+# Custom webhooks - can be registered via the API for custom logging
+# These can be registered programmatically by other plugins using:
+#   api.register_webhook("name", "https://discord.com/api/webhooks/...")
+# Then send logs using:
+#   await api.send_to_webhook("name", "message")
+[custom_webhooks]
+# Example entries (uncomment and configure as needed):
+# my_plugin_events = "https://discord.com/api/webhooks/your-id/your-token"
+# backup_webhook = "https://discord.com/api/webhooks/backup-id/backup-token"
+
+# Webhook URLs for each module
+# If a module-specific URL is empty, it will fall back to global_webhook
+[webhooks]
+player_join = ""
+player_quit = ""
+server_start = ""
+server_stop = ""
+server_crash = ""
+player_command = ""
+console_command = ""
+chat_message = ""
+
+# Enable/disable logging for each module
+[enabled]
+player_join = true
+player_quit = true
+server_start = true
+server_stop = true
+server_crash = true
+player_command = true
+console_command = true
+chat_message = true
+
+# Language settings
+# Available: en (English), fr (Francais)
+# Add more language files in the translations folder
+language = "en"
+
+# Message formatting options
+[formatting]
+include_timestamp = true
+include_server_name = true
+use_embeds = true
+embed_color = "0x3498DB"  # Blue color, can be any hex color code
+
+# Filter settings
+[filters]
+# Commands that will not be logged
+ignored_commands = ["list", "help"]
+# Regex patterns for chat messages that will not be logged
+ignored_chat_patterns = []
+
+# Bot appearance settings
+[bot]
+username = "Server Logger"
+avatar_url = ""  # Leave empty for default Discord webhook avatar
